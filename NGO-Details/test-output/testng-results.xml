@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="937727" started-at="2020-09-09T19:26:55Z" finished-at="2020-09-09T19:42:32Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="937727" started-at="2020-09-09T19:26:55Z" finished-at="2020-09-09T19:42:32Z">
+      <class name="NGO.NGODataTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:NGO.NGODataTest@77caeb3e]" name="setup" is-config="true" duration-ms="13722" started-at="2020-09-09T19:26:55Z" finished-at="2020-09-09T19:27:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="f()[pri:0, instance:NGO.NGODataTest@77caeb3e]" name="f" duration-ms="923340" started-at="2020-09-09T19:27:08Z" finished-at="2020-09-09T19:42:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+        <test-method status="PASS" signature="CloseBrowser()[pri:0, instance:NGO.NGODataTest@77caeb3e]" name="CloseBrowser" is-config="true" duration-ms="587" started-at="2020-09-09T19:42:32Z" finished-at="2020-09-09T19:42:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CloseBrowser -->
+      </class> <!-- NGO.NGODataTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
