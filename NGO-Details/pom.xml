@@ -7,6 +7,32 @@
   <version>1.0-SNAPSHOT</version>
   <name>NGO-Details</name>
   <url>http://maven.apache.org</url>
+  <!-- Plugins requires for executing Tests -->
+  <build>
+  	<plugins>
+  	
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M4</version>
+        <configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>
+      </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<configuration>
+			<version>3.8.1</version>
+		    <type>maven-plugin</type>
+		</configuration>
+      </plugin>
+	</plugins>
+  </build>
+  
+ <!-- Dependencies required for project -->
   <dependencies>
   	<dependency>
       <groupId>junit</groupId>
