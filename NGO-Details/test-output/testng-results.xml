@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="937727" started-at="2020-09-09T19:26:55Z" finished-at="2020-09-09T19:42:32Z">
+  <suite name="Default suite" duration-ms="495309" started-at="2020-09-10T03:17:22Z" finished-at="2020-09-10T03:25:38Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="937727" started-at="2020-09-09T19:26:55Z" finished-at="2020-09-09T19:42:32Z">
-      <class name="NGO.NGODataTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:NGO.NGODataTest@77caeb3e]" name="setup" is-config="true" duration-ms="13722" started-at="2020-09-09T19:26:55Z" finished-at="2020-09-09T19:27:08Z">
+    <test name="Default test" duration-ms="495309" started-at="2020-09-10T03:17:22Z" finished-at="2020-09-10T03:25:38Z">
+      <class name="NGO.NgoDataTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:NGO.NgoDataTest@77caeb3e]" name="setup" is-config="true" duration-ms="12655" started-at="2020-09-10T03:17:22Z" finished-at="2020-09-10T03:17:35Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="f()[pri:0, instance:NGO.NGODataTest@77caeb3e]" name="f" duration-ms="923340" started-at="2020-09-09T19:27:08Z" finished-at="2020-09-09T19:42:32Z">
+        <test-method status="PASS" signature="writeToExcel()[pri:0, instance:NGO.NgoDataTest@77caeb3e]" name="writeToExcel" duration-ms="482060" started-at="2020-09-10T03:17:35Z" finished-at="2020-09-10T03:25:37Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- f -->
-        <test-method status="PASS" signature="CloseBrowser()[pri:0, instance:NGO.NGODataTest@77caeb3e]" name="CloseBrowser" is-config="true" duration-ms="587" started-at="2020-09-09T19:42:32Z" finished-at="2020-09-09T19:42:32Z">
+        </test-method> <!-- writeToExcel -->
+        <test-method status="PASS" signature="CloseBrowser()[pri:0, instance:NGO.NgoDataTest@77caeb3e]" name="CloseBrowser" is-config="true" duration-ms="534" started-at="2020-09-10T03:25:37Z" finished-at="2020-09-10T03:25:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- CloseBrowser -->
-      </class> <!-- NGO.NGODataTest -->
+      </class> <!-- NGO.NgoDataTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

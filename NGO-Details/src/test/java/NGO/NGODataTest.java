@@ -3,6 +3,7 @@ package NGO;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,73 +12,109 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import XLUtils.writeexceldata;
+import XLUtils.ExcelHandler;
 
-public class NGODataTest extends BaseTest{
+public class NgoDataTest extends BaseTest{
   @Test
-  public void f() throws Exception {
+  public void writeToExcel() throws Exception {
+	  WebDriverWait wait = new WebDriverWait(driver,20);
+	  //Click on NGOs Enrolled element
+	  WebElement ngoEnrolled= driver.findElement(By.xpath("//a[@href='https://ngodarpan.gov.in/index.php/home/statewise' and contains(text(),'NGOs ')]"));
+	  wait.until(ExpectedConditions.elementToBeClickable(ngoEnrolled));
+	  ngoEnrolled.click();
 	  
-	  driver.findElement(By.xpath("//a[@href='https://ngodarpan.gov.in/index.php/home/statewise' and contains(text(),'NGOs ')]")).click();
 	  
-	  WebElement rajasthanLink= driver.findElement(By.xpath("//a[contains(text(),'RAJASTHAN')]"));
-	  WebDriverWait wait = new WebDriverWait(driver,50);
-	  wait.until(ExpectedConditions.visibilityOf(rajasthanLink));
+	  //Find xpath of Rajasthan from NGO Directory and wait for element to visible then click
+	  WebElement rajasthanLink= driver.findElement(By.xpath("//a[contains(text(),'RAJASTHAN')]")); 
+	  wait.until(ExpectedConditions.elementToBeClickable(rajasthanLink));
 	  rajasthanLink.click();
-
-
 	  
-	  writeexceldata data = new writeexceldata();
+	  //Create an object for ExcelHandler class  
+	  ExcelHandler data = new ExcelHandler();
+	  
+	  //Path of excel file , name of file and sheet
 	  String path = System.getProperty("user.dir")+"\\src\\test\\java\\DataFiles\\ExportExcel.xlsx";
-	  String filename = "ExportExcel.xlsx";
+	  String fileName = "ExportExcel.xlsx";
 	  String sheet = "Rajasthan";
 	  
-	  WebElement pagedropdown = driver.findElement(By.xpath("//select[@name='per_page']"));
-	  Select dropdown = new Select(pagedropdown);
-	  dropdown.selectByIndex(3);
+	  //Create an Object of Select class to select 100 records per page
+	  WebElement pageDropDown = driver.findElement(By.xpath("//select[@name='per_page']"));
+	  Select dropDown = new Select(pageDropDown);
+	  dropDown.selectByIndex(3);
+	  
+	  //Create an object of Action Class
 	  Actions action = new Actions(driver);
 	  
-//	  String[] titlecol = {"address","city","state","phone","mobile","web","email"};
-//	  data.setSheetData(path, filename, sheet, titlecol);
+	  //Initialize recordCount
+	  int recordCount = 0;
 	  
-	  int RecordCounter = 0;
-	  ArrayList<String[]> valueset = new ArrayList<String[]>();
-	  for(int k = 2; k <= 4; k++) {
-		  
+	  //Initialize ArrayList to store all records
+	  ArrayList<String[]> recordSet = new ArrayList<String[]>();
+	  
+	  //Loop for page 
+	  for(int k = 2; k <= 4; k++) {  
+		 
+		 //Loop for each NGO
 		 for (int i = 1; i <= 100; i++) {
-			 if(RecordCounter == 250) {
+			 
+			 //Stop at 250 
+			 if(recordCount == 250) {
 				 break;
 			 }
-			 Thread.sleep(2000);
-			 String xpath= "//table[@class='table table-striped table-bordered table-hover Tax']//tbody//tr["+i+"]//td[2]//a";
-			 WebElement listelemnt = driver.findElement(By.xpath(xpath));
-			 wait.until(ExpectedConditions.visibilityOf(listelemnt));
-			 listelemnt.click();
-			  
-			  WebElement modeltitle = driver.findElement(By.xpath("//h2[@id='gridModalLabel']"));
-			  wait.until(ExpectedConditions.visibilityOf(modeltitle));
-			  String address = driver.findElement(By.xpath("//td[@id='address']")).getText();
-			  String city = driver.findElement(By.xpath("//td[@id='city']")).getText();
-			  String state = driver.findElement(By.xpath("//td[@id='state_p_ngo']")).getText();
-			  String phone = driver.findElement(By.xpath("//td[@id='phone_n']")).getText();
-			  String mobile = driver.findElement(By.xpath("//td[@id='mobile_n']")).getText();
-			  String web = driver.findElement(By.xpath("//td[@id='ngo_web_url']")).getText();
-			  String email = driver.findElement(By.xpath("//td[@id='email_n']")).getText();
-			  
-			  action.sendKeys(Keys.ESCAPE).build().perform();
-			  
-			  String[] valuetowrite = {address,city,state,phone,mobile,web,email};
-			   
-			  valueset.add(valuetowrite);
-			  RecordCounter++;
+			 //Thread.sleep(2000);
+			 
+			//click on NGO name
+			 String ngoNameXpath= "//table[@class='table table-striped table-bordered table-hover Tax']//tbody//tr["+i+"]//td[2]//a";
+			 WebElement ngoName = driver.findElement(By.xpath(ngoNameXpath));
+			 wait.until(ExpectedConditions.elementToBeClickable(ngoName));
+			 try {
+				 ngoName.click();
+			 } catch (Exception e) {
+				 JavascriptExecutor executor = (JavascriptExecutor) driver;
+			     executor.executeScript("arguments[0].click();",ngoName);
+			 }
+			 
+			 
+			 WebElement modalTitle = driver.findElement(By.xpath("//h2[@id='gridModalLabel']"));
+			 wait.until(ExpectedConditions.visibilityOf(modalTitle));
+			
+			//Get contact details  
+			 String address = driver.findElement(By.xpath("//td[@id='address']")).getText();
+			 String city = driver.findElement(By.xpath("//td[@id='city']")).getText();
+			 String state = driver.findElement(By.xpath("//td[@id='state_p_ngo']")).getText();
+			 String phone = driver.findElement(By.xpath("//td[@id='phone_n']")).getText();
+			 String mobile = driver.findElement(By.xpath("//td[@id='mobile_n']")).getText();
+			 String web = driver.findElement(By.xpath("//td[@id='ngo_web_url']")).getText();
+			 String email = driver.findElement(By.xpath("//td[@id='email_n']")).getText();
+			
+			//Close modal
+			 action.sendKeys(Keys.ESCAPE).build().perform();
+			
+			//Create Record 
+			 String[] record = {address,city,state,phone,mobile,web,email};
+			
+			//Add Record to arraylist   
+			 recordSet.add(record);
+			 
+			//Increment recordCount 
+			 recordCount++;
 			 
 		}
-		 Thread.sleep(2000);
-		 String pageincrpath= "(//a[@data-ci-pagination-page="+ k +"])[1]";
-		 driver.findElement(By.xpath(pageincrpath)).click();
+		 	
+		//Click on next page
+		String nextPageXpath= "(//a[@data-ci-pagination-page="+ k +"])[1]";
+		WebElement nextPage= driver.findElement(By.xpath(nextPageXpath));
+		wait.until(ExpectedConditions.elementToBeClickable(nextPage));
+		try {
+			nextPage.click();
+		 } catch (Exception e) {
+			 JavascriptExecutor executor = (JavascriptExecutor) driver;
+		     executor.executeScript("arguments[0].click();",nextPage);
+		 }
 	 
 	  }
-	  //write to excel
-	  data.setSheetData(path, filename, sheet, valueset);
+	  //Write to excel
+	  data.setSheetData(path, fileName, sheet, recordSet);
 	  
   }
 }
